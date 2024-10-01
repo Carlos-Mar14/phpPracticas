@@ -1,0 +1,16 @@
+body {
+    background-color: #461d1d;
+}
+h1
+{
+    color: #ff0a8d;
+}
+
+.featured {
+    background-color: #ec0000;
+    border: 1px solid #000000;
+}
+
+#comentarioText{
+    background-color: #ec0000;
+}
