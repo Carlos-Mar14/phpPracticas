@@ -8,13 +8,13 @@ use App\Models\Comment;
 class CommentController extends Controller
 {
     public function index(Request $request)
-    {
-        // Obtener todos los comentarios
-        $comments = Comment::all();
-        dd($comments);
-        // Devolver la vista con los comentarios
-        return view('livewire.archivos_php', compact('comments'));
-    }
+{
+   
+    // Obtener todos los comentarios
+    $comments = Comment::all();
+    // Devolver la vista con los comentarios
+    return view('livewire.archivos_php', compact('comments'));
+}
 
     public function store(Request $request)
         {

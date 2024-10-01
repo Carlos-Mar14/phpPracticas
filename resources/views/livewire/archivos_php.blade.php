@@ -189,9 +189,6 @@
                 </form>
 
                 <!-- Lista de comentarios -->
-                @php
-                    dd($comments);
-                @endphp
                 @if (isset($comments) && $comments->isNotEmpty())
                     <h2 class="mt-5">Lista de comentarios</h2>
                     <div class="listComments">
@@ -211,13 +208,12 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($comments ?? [] as $comment)
+                                                    @foreach ($comments as $comment)
                                                         <tr>
                                                             <td>{{ $comment->name }}</td>
                                                             <td>{{ $comment->email }}</td>
                                                             <td>{{ $comment->comment }}</td>
                                                             <td>{{ $comment->created_at }}</td>
-                                                            <td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

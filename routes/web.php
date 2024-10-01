@@ -17,6 +17,6 @@ Route::view('profile', 'profile')
     ->name('profile');
     
 Route::resource('comments', CommentController::class);
-    
+Route::get('/comments', [CommentController::class, 'index']);
 
 require __DIR__.'/auth.php';
