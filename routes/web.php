@@ -8,15 +8,17 @@ Route::view('/', 'welcome');
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-
-Route::view('livewire/archivos_php', 'livewire.archivos_php')
-    ->name('archivos_php');
     
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
-    
+
+//Ruta para el blog e inyeccion de controlador para carga de comentarios
+Route::get('livewire/archivos_php', [CommentController::class, 'index'])
+        ->name('archivos_php');
 Route::resource('comments', CommentController::class);
-Route::get('/comments', [CommentController::class, 'index']);
+
+
+    
 
 require __DIR__.'/auth.php';

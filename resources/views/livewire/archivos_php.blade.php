@@ -3,7 +3,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <!-- Estilos personalizados -->
+    <!-- Estilos -->
     <style>
         body {
             margin: 0;
@@ -32,10 +32,6 @@
         #commentForm label {
             display: block;
             margin-bottom: 5px;
-        }
-
-        .listComments {
-            background-color: brown;
         }
 
         .footer_column {
@@ -192,39 +188,40 @@
                 @if (isset($comments) && $comments->isNotEmpty())
                     <h2 class="mt-5">Lista de comentarios</h2>
                     <div class="listComments">
-                        <div id="commentList">
-                            <div class="py-12">
-                                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                                        <div
-                                            class="p-6 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Nombre</th>
-                                                        <th>Email</th>
-                                                        <th>Comentario</th>
-                                                        <th>Fecha</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($comments as $comment)
-                                                        <tr>
-                                                            <td>{{ $comment->name }}</td>
-                                                            <td>{{ $comment->email }}</td>
-                                                            <td>{{ $comment->comment }}</td>
-                                                            <td>{{ $comment->created_at }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Comentario</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($comments as $comment)
+                                    <tr>
+                                        <td>{{ $comment->name }}</td>
+                                        <td>{{ $comment->email }}</td>
+                                        <td>{{ $comment->comment }}</td>
+                                        <td>{{ $comment->created_at }}</td>
+                                        <td>
+                                            <button class="btn btn-primary editComment" data-id="{{ $comment->id }}"
+                                                onclick="document.getElementById('editForm').style.display = 'block';">Editar
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-danger deleteComment" data-id="{{ $comment->id }}"
+                                                onclick="document.getElementById('delete-comment-form-{{ $comment->id }}').submit()">Eliminar</button>
+                                            <form id="delete-comment-form-{{ $comment->id }}"
+                                                action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 @else
                     <p>No hay comentarios disponibles.</p>
