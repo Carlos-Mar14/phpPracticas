@@ -21,44 +21,46 @@ class CommentController extends Controller
     }
 
     public function store(Request $request)
-        {
-            // Validar los datos del formulario
-            $validated = $request->validate([
-                'name' => 'required',
-                'email' => 'required|email',
-                'comment' => 'required',
-            ]);
+    {
+        // Validar los datos del formulario
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'comment' => 'required',
+        ]);
 
-            // Crear un nuevo comentario
-            Comment::create($validated);
+        // Crear un nuevo comentario
+        Comment::create($validated);
 
-            // Redirigir al usuario después de guardar el comentario
-            return redirect()->back();
+        // Redirigir al usuario después de guardar el comentario
+        return redirect()->back();
+    }
+
+    public function destroy(Comment $comment)
+    {
+        // Verificar que el comentario exista
+        if (!$comment) {
+            return redirect()->back()->with('error', 'El comentario no existe');
         }
 
-        public function destroy(Comment $comment)
-        {
-            // Verificar que el comentario exista
-            if (!$comment) {
-                return redirect()->back()->with('error', 'El comentario no existe');
-            }
-    
-            // Eliminar el comentario
-            $comment->delete();
-    
-            // Actualizar la lista de comentarios actuales
-            $comments = Comment::all();
-            // Devolver la vista con los comentarios actualizados
-            return redirect()->route('archivos_php');    
-        }
+        // Eliminar el comentario
+        $comment->delete();
 
-        public function update(Request $request, Comment $comment)
-        {
-            $comment->update($request->all());
-            return redirect()->route('comments.index');
-        }
+        // Actualizar la lista de comentarios actuales
+        $comments = Comment::all();
+        // Devolver la vista con los comentarios actualizados
+        return redirect()->route('archivos_php');
+    }
 
-        
+    public function update(Request $request, Comment $comment)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'comment' => 'required',
+        ]);
+        $comment->update($validated);
 
-
+        return redirect()->route('archivos_php');
+    }
 }
