@@ -91,7 +91,7 @@
         <div class="containerNavbar">
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Deportes</a>
+                    <a class="navbar-brand" href="/livewire/archivos_php">Deportes</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -100,7 +100,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                                <a class="nav-link active" aria-current="page" href="/livewire/archivos_php">Inicio</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/profile">Perfil</a>
@@ -172,16 +172,14 @@
             como otras actividades físicas.</p>
 
         <p>Se debe tener en cuenta las posibles lesiones asociadas al deporte y tomar medidas preventivas adecuadas.</p>
+        @livewire('form-comment')
     </main>
     <div class="flex justify-center">
         <img src="https://telemedellin.tv/wp-content/uploads/2021/09/30-SELECCION-COLOMBIA.jpg" alt="futbolImg"
             style="width: 600px; display: block; margin: 0 auto;">
     </div>
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-choMNfiG8BwwbiOYLZycny7sC1nTAAUSYXG5Xnk/c4Ilhij93AllmRFmpxc7WcA4l" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/livewire@v3.x.x/dist/livewire.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </div>

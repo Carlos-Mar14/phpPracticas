@@ -15,12 +15,12 @@ class BlogBaloncesto extends Component
 
     public function mount()
     {
-        $this->loadComments();
+        $this->comments = Comment::latest()->get();
     }
 
     public function loadComments()
     {
-        $this->comments = Comment::latest()->paginate(10);
+        $this->comments = Comment::latest()->get();
     }
 
     public function editComment($id)
@@ -42,6 +42,7 @@ class BlogBaloncesto extends Component
         }
     }
 
+
     private function store()
     {
         Comment::create([
@@ -51,7 +52,7 @@ class BlogBaloncesto extends Component
         ]);
 
         $this->resetInputFields();
-        $this->emit('commentAdded');
+      //  $this->emit('commentAdded');
     }
 
     private function update()

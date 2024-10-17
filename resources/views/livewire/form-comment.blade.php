@@ -2,10 +2,12 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 
-    <!-- Estilos personalizados -->
     <style>
-        body {
+        >body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
@@ -46,14 +48,9 @@
             margin-top: 150px;
         }
     </style>
-
-    <div id="navbar-wrapper">
-        <!-- Tu navbar existente -->
-    </div>
-
     <div class="container mt-5">
-        <h4>Envianos un comentario o establece contacto con nostros</h4>
-        <form id="commentForm" action="{{ route('comments.store') }}" method="POST">
+        <h4>Envíanos un comentario o establece contacto con nostros</h4>
+        <form action="{{ route('comments.store') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Nombre:</label>
@@ -70,9 +67,10 @@
             <button type="submit" class="btn btn-primary">Agregar Comentario</button>
         </form>
 
+
         <!-- Lista de comentarios -->
-        @if ($comments->isNotEmpty())
-            <h2 class="mt-5">Lista de comentarios</h2>
+        @if (isset($comments))
+            <h2>Lista de comentarios</h2>
             <div class="listComments">
                 <table class="table table-striped">
                     <thead>
@@ -80,7 +78,7 @@
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Comentario</th>
-                            <th>Fecha</th>
+                            <th>Accion</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,48 +87,40 @@
                                 <td>{{ $comment->name }}</td>
                                 <td>{{ $comment->email }}</td>
                                 <td>{{ $comment->comment }}</td>
-                                <td>{{ $comment->created_at }}</td>
                                 <td>
-                                    <button class="btn btn-primary editComment"
-                                        onclick="editComment({{ $comment->id }})">Editar</button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-danger deleteComment" data-id="{{ $comment->id }}"
-                                        onclick="document.getElementById('delete-comment-form-{{ $comment->id }}').submit()">Eliminar</button>
-                                </td>
-                                <td>
-                                    <form id="delete-comment-form-{{ $comment->id }}"
-                                        action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
                                     </form>
+
+                                    <a href="#" class="btn btn-primary ml-2 edit-comment-btn"
+                                        data-id="{{ $comment->id }}" data-name="{{ $comment->name }}"
+                                        data-email="{{ $comment->email }}"
+                                        data-comment="{{ $comment->comment }}">Editar</a>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-        @else
-            <p>No hay comentarios disponibles.</p>
         @endif
         <!-- Formulario de edición (oculto por defecto) -->
         <div id="editForm" style="display: none;">
             <h2>Editar comentario</h2>
-            <form id="editForm" method="POST" action="{{ route('comments.update', $comment->id) }}">
-                @csrf
-                @method('PUT')
-                <input type="hidden" id="editId" name="id">
+            <form wire:submit.prevent="updateForm">
+                <input type="hidden" wire:model="editingId">
                 <div class="mb-3">
                     <label for="editName" class="form-label">Nombre:</label>
-                    <input type="text" class="form-control" id="editName" name="name" required>
+                    <input type="text" class="form-control" id="editName" wire:model="name" required>
                 </div>
                 <div class="mb-3">
                     <label for="editEmail" class="form-label">Correo electrónico:</label>
-                    <input type="email" class="form-control" id="editEmail" name="email" required>
+                    <input type="email" class="form-control" id="editEmail" wire:model="email" required>
                 </div>
                 <div class="mb-3">
                     <label for="editComment" class="form-label">Comentario:</label>
-                    <textarea class="form-control" id="editComment" name="comment" rows="5" required></textarea>
+                    <textarea class="form-control" id="editComment" wire:model="comment" rows="5" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Actualizar</button>
                 <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancelar</button>
@@ -142,23 +132,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-choMNfiG8BwwbiOYLZycny7sC1nTAAUSYXG5Xnk/c4Ilhij93AllmRFmpxc7WcA4l" crossorigin="anonymous">
-    </script>
-    <script>
-        function cancelEdit() {
-            document.getElementById('editForm').style.display = 'none';
-        }
-    </script>
-    <script>
-        Livewire.on('commentAdded', () => {
-            console.log('Nuevo comentario agregado');
-            // Aquí puedes agregar lógica para actualizar la interfaz del usuario si es necesario
-        });
-
-        Livewire.on('commentUpdated', () => {
-            console.log('Comentario actualizado');
-            // Aquí puedes agregar lógica para actualizar la interfaz del usuario si es necesario
-        });
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
     </script>
 </div>

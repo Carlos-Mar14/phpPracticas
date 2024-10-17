@@ -124,7 +124,7 @@
         <div class="containerNavbar">
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Deportes</a>
+                    <a class="navbar-brand" href="/livewire/archivos_php">Deportes</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -133,7 +133,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                                <a class="nav-link active" aria-current="page" href="/livewire/archivos_php">Inicio</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/profile">Perfil</a>
@@ -209,7 +209,7 @@
             <p>Es importante recordar que para obtener estos beneficios es necesario practicar tenis regularmente.
                 Además, es recomendable consultar con un médico antes de iniciar cualquier nueva actividad física,
                 especialmente si tienes condiciones preexistentes o preocupaciones de salud.</p>
-
+            @livewire('form-comment')
             <footer>
                 <p>&copy; 2023 Construye Tu Fisico. Todos los derechos reservados.</p>
             </footer>

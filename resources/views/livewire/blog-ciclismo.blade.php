@@ -113,9 +113,11 @@
         </header>
         <main>
             <section class="beneficios">
-            <p>La bicicleta es una excelente forma de ejercicio físico que ofrece numerosos beneficios para la salud.
-                Desde mejora evidente en la condición cardiovascular hasta beneficios psicológicos y sociales, el uso
-                regular de la bicicleta proporciona ventajas significativas para aquellos que lo practican.</p>
+                <p>La bicicleta es una excelente forma de ejercicio físico que ofrece numerosos beneficios para la
+                    salud.
+                    Desde mejora evidente en la condición cardiovascular hasta beneficios psicológicos y sociales, el
+                    uso
+                    regular de la bicicleta proporciona ventajas significativas para aquellos que lo practican.</p>
 
                 <h2>Mejoras Físicas</h2>
                 <div class="beneficio">
@@ -188,6 +190,7 @@
                         adecuadas.</p>
                 </div>
             </section>
+            @livewire('form-comment')
         </main>
 
         <!-- Bootstrap JS -->

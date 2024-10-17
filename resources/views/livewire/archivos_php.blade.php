@@ -152,8 +152,6 @@
                 </div>
             </div>
 
-
-
             <body>
                 <header>
                     <h1>Bienvenido al Blog de Deportes</h1>
@@ -201,6 +199,12 @@
                                 social en los niños.</li>
                         </ul>
                     </div>
+                    <div>
+                        <a href="{{ route('blogs.create') }}" class="btn btn-primary">Crear nuevo blog</a>
+                        <a href="{{ route('blogs.index') }}" class="btn btn-primary">Ver todos los blogs</a>
+
+                    </div>
+
                     <div class="container">
                         <br>
                         <div class="card-grid">

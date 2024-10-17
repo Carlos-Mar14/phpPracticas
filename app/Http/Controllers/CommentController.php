@@ -9,8 +9,8 @@ class CommentController extends Controller
 {
     public function index()
     {
-        $comments = Comment::latest()->paginate(10);
-        return view('livewire.form-comment', compact('comments'));
+        $comments = Comment::latest()->get();
+        return view('livewire.form-comment', ['comments' => $comments]);
     }
 
     public function store(Request $request)
@@ -21,10 +21,19 @@ class CommentController extends Controller
             'comment' => 'required|string|max:1000',
         ]);
 
-        Comment::create($validatedData);
+        try {
+            // Crea una nueva instancia de Comment con los datos validados
+            $comment = new Comment();
+            $comment->fill($validatedData);
+            $comment->post_id = $request->input('post_id'); // Obtiene post_id desde la solicitud
+            $comment->save();
 
-        return redirect()->route('comments.index')->with('success', 'Comentario agregado con éxito.');
+            return redirect()->back()->with('success', 'Comentario agregado con éxito.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Ocurrió un error al guardar el comentario. Por favor, inténtelo nuevamente.');
+        }
     }
+
 
     public function update(Request $request, Comment $comment)
     {

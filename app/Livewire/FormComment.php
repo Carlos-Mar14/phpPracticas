@@ -11,76 +11,51 @@ class FormComment extends Component
     public $email;
     public $comment;
     public $comments;
-    public $editingComment = null;
+    public $blogId;
 
-    public function mount()
+    public function mount($blogId)
     {
+        $this->blogId = $blogId;
+        $this->resetValidation();
         $this->loadComments();
     }
 
-    public function loadComments()
+    private function loadComments()
     {
-        $this->comments = Comment::latest()->paginate(10);
+        $this->comments = Comment::where('blog_id', $this->blogId)->latest()->get();
     }
 
+    public function resetForm()
+    {
+        $this->reset(['name', 'email', 'comment']);
+        $this->resetValidation();
+    }
+    public function submitComment()
+    {
+        $this->validate([
+            'post_id' => $this->postId,
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'comment' => 'required|string|max:1000',
+        ]);
+
+        try {
+            $comment = new Comment();
+            $comment->fill($this->only(['name', 'email', 'comment']));
+            $comment->blog_id = $this->blogId;
+            $comment->save();
+
+            $this->resetForm();
+            $this->loadComments();
+            return redirect()->back()->with('success', 'Comentario agregado con éxito.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Ocurrió un error al guardar el comentario. Por favor, inténtelo nuevamente.');
+        }
+    }
     public function render()
     {
         return view('livewire.form-comment', [
             'comments' => $this->comments,
-            'editingComment' => $this->editingComment,
         ]);
-    }
-
-    public function editComment($id)
-    {
-        $this->editingComment = Comment::findOrFail($id);
-    }
-
-    public function cancelEdit()
-    {
-        $this->editingComment = null;
-    }
-
-    public function submitForm()
-    {
-        if (!$this->editingComment) {
-            $this->store();
-        } else {
-            $this->update();
-        }
-    }
-
-    private function store()
-    {
-        $validatedData = $this->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'comment' => 'required|string|max:1000',
-        ]);
-
-        Comment::create($validatedData);
-        $this->resetInputFields();
-        $this->emit('commentAdded');
-    }
-
-    private function update()
-    {
-        $validatedData = $this->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'comment' => 'required|string|max:1000',
-        ]);
-
-        $this->editingComment->update($validatedData);
-        $this->resetInputFields();
-        $this->emit('commentUpdated');
-    }
-
-    private function resetInputFields()
-    {
-        $this->name = '';
-        $this->email = '';
-        $this->comment = '';
-        $this->editingComment = null;
     }
 }

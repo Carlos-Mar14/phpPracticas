@@ -106,44 +106,16 @@
         </div>
     </div>
 
-    <body>
-        <header>
-            <h1>Beneficios del Baloncesto</h1>
-        </header>
-        <main>
-            <section class="beneficios">
-                <div class="beneficio">
-                    <h2>1. Condición cardiovascular</h2>
-                    <p>El baloncesto es una excelente forma de ejercicio cardiovascular que mejora la salud del corazón
-                        y reduce el riesgo de enfermedades cardíacas.</p>
-                </div>
-                <div class="beneficio">
-                    <h2>2. Gestión del peso</h2>
-                    <p>La práctica regular ayuda a mantener un peso saludable y composición corporal adecuada.</p>
-                </div>
-                <div class="beneficio">
-                    <h2>3. Fortaleza y resistencia muscular</h2>
-                    <p>Mejora la fuerza y resistencia muscular, especialmente en las piernas, brazos e hombros.</p>
-                </div>
-                <div class="beneficio">
-                    <h2>4. Flexibilidad y coordinación</h2>
-                    <p>Mejora la flexibilidad y la coordinación física general.</p>
-                </div>
-                <div class="beneficio">
-                    <h2>5. Densidad ósea</h2>
-                    <p>La naturaleza de impacto alta del baloncesto fortalece los huesos, reduciendo el riesgo de
-                        osteoporosis.</p>
-                </div>
-            </section>
+    <div>
+        <h1>{{ $blog->title }}</h1>
+        <p>{{ $blog->description }}</p>
+    </div>
 
-            <!-- acá llamar form-comment.blade.php para mostrar formulario de comentarios en esta vista-->
-            @livewire('form-comment')
-            <!-- Bootstrap JS -->
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-            </script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-choMNfiG8BwwbiOYLZycny7sC1nTAAUSYXG5Xnk/c4Ilhij93AllmRFmpxc7WcA4l" crossorigin="anonymous">
-            </script>
-    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-choMNfiG8BwwbiOYLZycny7sC1nTAAUSYXG5Xnk/c4Ilhij93AllmRFmpxc7WcA4l" crossorigin="anonymous">
+    </script>
 </div>
